@@ -30,14 +30,18 @@ public class Worker {
     private String email;
 
     @Enumerated(EnumType.STRING)
-    private Role role;                  // ADMIN, SUPERVISOR, WORKER
+    private Role role;
 
     @ManyToOne
     @JoinColumn(name = "center_id")
-    private Center center;              // null for ADMIN/SUPERVISOR without single center
+    private Center center;
 
     @Column(nullable = false)
-    private String hashedPassword;      // will be set later with BCrypt
+    private String hashedPassword;
+
+    public void setPlainPassword(String plainPassword) {
+        this.hashedPassword = plainPassword;
+    }
 
     private Boolean active = true;
 

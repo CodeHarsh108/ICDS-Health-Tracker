@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface CenterRepositoy extends JpaRepository<Center, Integer> {
+public interface CenterRepository extends JpaRepository<Center, Integer> {
     Optional<Center> findByCenterCode(String centerCode);
 
 }
