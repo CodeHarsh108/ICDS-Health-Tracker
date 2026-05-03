@@ -26,7 +26,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         Worker worker = (Worker) workerRepository.findByMobile(mobile)
                 .orElseThrow(() -> new UsernameNotFoundException("Worker not found with mobile: " + mobile));
 
-        if (!worker.getActive()) {
+        if (!worker.isActive()) {
             throw new UsernameNotFoundException("Worker account is disabled");
         }
 

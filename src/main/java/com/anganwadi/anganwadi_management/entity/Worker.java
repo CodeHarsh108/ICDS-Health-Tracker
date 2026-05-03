@@ -43,7 +43,7 @@ public class Worker {
         this.hashedPassword = plainPassword;
     }
 
-    private Boolean active = true;
+    private boolean active = true;
 
     private LocalDateTime createdAt = LocalDateTime.now();
     private LocalDateTime updatedAt = LocalDateTime.now();
