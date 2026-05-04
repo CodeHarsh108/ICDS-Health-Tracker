@@ -52,4 +52,7 @@ public class Beneficiary {
     public enum Gender {
         MALE, FEMALE, OTHER
     }
+
+    @Column(nullable = false)
+    private Boolean isPregnant = false;
 }
