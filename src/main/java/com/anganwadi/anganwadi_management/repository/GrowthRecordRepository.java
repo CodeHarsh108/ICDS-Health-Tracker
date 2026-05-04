@@ -18,4 +18,13 @@ public interface GrowthRecordRepository extends JpaRepository<GrowthRecord, Inte
 
     @Query("SELECT gr FROM GrowthRecord gr WHERE gr.beneficiary.id = :beneficiaryId AND gr.recordDate >= :startDate")
     List<GrowthRecord> findByBeneficiaryIdAndRecordDateAfter(@Param("beneficiaryId") Long beneficiaryId, @Param("startDate") LocalDate startDate);
+
+    // Find latest growth record before end of month, and first record after start?
+// Easier: get all records for beneficiaries in center, then compute in service.
+// We'll do service calculation but need efficient queries.
+
+    @Query("SELECT gr FROM GrowthRecord gr WHERE gr.beneficiary.center.id = :centerId AND gr.recordDate BETWEEN :startDate AND :endDate ORDER BY gr.beneficiary.id, gr.recordDate")
+    List<GrowthRecord> findByCenterAndDateRange(@Param("centerId") Long centerId,
+                                                @Param("startDate") LocalDate startDate,
+                                                @Param("endDate") LocalDate endDate);
 }
