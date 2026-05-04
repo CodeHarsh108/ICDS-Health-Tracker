@@ -36,5 +36,7 @@ public class GrowthRecord {
     @JoinColumn(name = "worker_id", nullable = false)
     private Worker recordedBy;
 
+    private String notes;
+
     private LocalDateTime createdAt = LocalDateTime.now();
 }

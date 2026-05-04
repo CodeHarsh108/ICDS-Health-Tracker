@@ -8,10 +8,12 @@ import com.anganwadi.anganwadi_management.entity.Worker;
 import com.anganwadi.anganwadi_management.repository.BeneficiaryRepository;
 import com.anganwadi.anganwadi_management.repository.CenterRepository;
 import com.anganwadi.anganwadi_management.util.SecurityUtils;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,9 +24,13 @@ public class BeneficiaryService {
     private final CenterRepository centerRepository;
     private final SecurityUtils securityUtils;
 
+    @PersistenceContext
+    private EntityManager entityManager;
+
     public BeneficiaryService(BeneficiaryRepository beneficiaryRepository,
                               CenterRepository centerRepository,
-                              SecurityUtils securityUtils) {
+                              SecurityUtils securityUtils
+    ) {
         this.beneficiaryRepository = beneficiaryRepository;
         this.centerRepository = centerRepository;
         this.securityUtils = securityUtils;
@@ -32,18 +38,15 @@ public class BeneficiaryService {
 
     @Transactional
     public BeneficiaryDto createBeneficiary(BeneficiaryDto dto) {
-        // Validate center
         Center center = centerRepository.findById(Math.toIntExact(dto.getCenterId()))
                 .orElseThrow(() -> new RuntimeException("Center not found"));
 
-        // Permission check: only worker assigned to this center can add beneficiaries
         Worker currentWorker = securityUtils.getCurrentWorker();
         if (currentWorker.getRole() == Worker.Role.WORKER &&
                 (currentWorker.getCenter() == null || !currentWorker.getCenter().getId().equals(center.getId()))) {
             throw new RuntimeException("Worker can only add beneficiaries to their own center");
         }
 
-        // Generate beneficiary ID: AW-<centerId>-<sequence>
         String beneficiaryId = generateBeneficiaryId(center.getId());
 
         Beneficiary beneficiary = Beneficiary.builder()
@@ -62,22 +65,15 @@ public class BeneficiaryService {
         return convertToDto(saved);
     }
 
+
     private String generateBeneficiaryId(Long centerId) {
-        // Find max sequence for this center: assumes format AW-<centerId>-<number>
-        List<Beneficiary> centerBeneficiaries = beneficiaryRepository.findByCenterId(centerId);
-        int maxSeq = 0;
-        for (Beneficiary b : centerBeneficiaries) {
-            String id = b.getAwcBeneficiaryId();
-            String[] parts = id.split("-");
-            if (parts.length == 3 && parts[1].equals(String.valueOf(centerId))) {
-                try {
-                    int seq = Integer.parseInt(parts[2]);
-                    if (seq > maxSeq) maxSeq = seq;
-                } catch (NumberFormatException ignored) {}
-            }
-        }
-        return "AW-" + centerId + "-" + (maxSeq + 1);
+        // Query the next value from the global sequence
+        String sql = "SELECT nextval('global_beneficiary_seq')";
+        Query query =  entityManager.createNativeQuery(sql);
+        Long nextVal = ((Number) query.getSingleResult()).longValue();
+        return "AW-" + centerId + "-" + nextVal;
     }
+
 
     public BeneficiaryDto updateBeneficiary(Long id, BeneficiaryDto dto) {
         Beneficiary beneficiary = beneficiaryRepository.findById(Math.toIntExact(id))
