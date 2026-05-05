@@ -55,4 +55,6 @@ public class Beneficiary {
 
     @Column(nullable = false)
     private Boolean isPregnant = false;
+
+
 }

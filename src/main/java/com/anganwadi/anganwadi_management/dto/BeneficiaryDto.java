@@ -12,7 +12,6 @@ public class BeneficiaryDto {
     @NotBlank private String fullName;
     @NotNull private LocalDate dateOfBirth;
     @NotBlank private String gender;    // MALE, FEMALE, OTHER
-    @Pattern(regexp = "^\\d{12}$", message = "Aadhaar must be 12 digits")
     private String aadhaarNumber;
     @NotBlank private String parentName;
     @NotBlank @Pattern(regexp = "\\d{10}") private String parentMobile;

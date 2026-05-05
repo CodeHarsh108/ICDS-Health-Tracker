@@ -22,17 +22,17 @@ public class AnganwadiManagementApplication {
 	@Bean
 	public CommandLineRunner createAdmin(WorkerRepository workerRepo, PasswordEncoder encoder) {
 		return args -> {
-			if (workerRepo.findByMobile("9999999999").isEmpty()) {
+			if (workerRepo.findByMobile("9589850604").isEmpty()) {
 				Worker admin = Worker.builder()
 						.employeeId("ADMIN001")
 						.fullName("System Admin")
-						.mobile("9999999999")
+						.mobile("9589850604")
 						.role(Worker.Role.ADMIN)
 						.hashedPassword(encoder.encode("admin123"))
 						.active(true)
 						.build();
 				workerRepo.save(admin);
-				System.out.println("✅ Admin created - mobile: 9999999999, password: admin123");
+				System.out.println("✅ Admin created - mobile: 9589850604, password: admin123");
 			}
 		};
 	}

@@ -60,6 +60,7 @@ public class BeneficiaryService {
                 .center(center)
                 .active(true)
                 .build();
+        beneficiary.setIsPregnant(false);
 
         Beneficiary saved = beneficiaryRepository.save(beneficiary);
         return convertToDto(saved);
@@ -67,11 +68,23 @@ public class BeneficiaryService {
 
 
     private String generateBeneficiaryId(Long centerId) {
-        // Query the next value from the global sequence
-        String sql = "SELECT nextval('global_beneficiary_seq')";
-        Query query =  entityManager.createNativeQuery(sql);
-        Long nextVal = ((Number) query.getSingleResult()).longValue();
-        return "AW-" + centerId + "-" + nextVal;
+        // Find all beneficiaries for this center (active or inactive? Use all to keep sequence unique)
+        List<Beneficiary> centerBeneficiaries = beneficiaryRepository.findByCenterId(centerId);
+        int maxSeq = 0;
+        for (Beneficiary b : centerBeneficiaries) {
+            String id = b.getAwcBeneficiaryId();
+            // Expected format: "AW-<centerId>-<seq>"
+            String[] parts = id.split("-");
+            if (parts.length == 3 && parts[1].equals(String.valueOf(centerId))) {
+                try {
+                    int seq = Integer.parseInt(parts[2]);
+                    if (seq > maxSeq) maxSeq = seq;
+                } catch (NumberFormatException e) {
+                    // ignore malformed IDs
+                }
+            }
+        }
+        return "AW-" + centerId + "-" + (maxSeq + 1);
     }
 
 
