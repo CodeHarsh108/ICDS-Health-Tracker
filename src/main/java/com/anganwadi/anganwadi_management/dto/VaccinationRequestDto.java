@@ -13,4 +13,7 @@ public class VaccinationRequestDto {
     private LocalDate givenDate;
 
     private String batchNumber;
+
+
+    private Long beneficiaryId;
 }

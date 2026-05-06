@@ -38,4 +38,13 @@ public class NutritionDistribution {
     private Worker distributedBy;
 
     private LocalDateTime createdAt = LocalDateTime.now();
+
+    @Column(nullable = true)
+    private LocalDateTime lastModified;
+
+    @PrePersist
+    @PreUpdate
+    protected void onUpdate() {
+        lastModified = LocalDateTime.now();
+    }
 }

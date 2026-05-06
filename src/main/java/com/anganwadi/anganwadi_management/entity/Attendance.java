@@ -41,4 +41,15 @@ public class Attendance {
     public enum SessionType {
         CHILD_SESSION, PREGNANT_MOTHER_SESSION
     }
+
+
+    @Column(nullable = true)
+    private LocalDateTime lastModified;
+
+    @PrePersist
+    @PreUpdate
+    protected void onUpdate() {
+        lastModified = LocalDateTime.now();
+    }
+
 }

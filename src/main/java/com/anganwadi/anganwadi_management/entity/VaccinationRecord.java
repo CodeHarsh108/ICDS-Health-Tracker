@@ -37,4 +37,13 @@ public class VaccinationRecord {
     private Worker givenBy;
 
     private LocalDateTime createdAt = LocalDateTime.now();
+
+    @Column(nullable = true)
+    private LocalDateTime lastModified;
+
+    @PrePersist
+    @PreUpdate
+    protected void onUpdate() {
+        lastModified = LocalDateTime.now();
+    }
 }

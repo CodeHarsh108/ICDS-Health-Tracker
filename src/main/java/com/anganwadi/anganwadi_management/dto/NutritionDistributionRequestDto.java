@@ -18,4 +18,6 @@ public class NutritionDistributionRequestDto {
     private Double quantity;
 
     private String unit;   // e.g., "piece", "gram", "ml"
+
+    private Long beneficiaryId;
 }
