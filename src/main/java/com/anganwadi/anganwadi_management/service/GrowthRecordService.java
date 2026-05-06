@@ -12,8 +12,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import com.anganwadi.anganwadi_management.dto.GrowthZScoreDto;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -26,13 +29,15 @@ public class GrowthRecordService {
     private final GrowthRecordRepository growthRecordRepository;
     private final BeneficiaryRepository beneficiaryRepository;
     private final SecurityUtils securityUtils;
+    private final ZScoreCalculator zScoreCalculator;
 
     public GrowthRecordService(GrowthRecordRepository growthRecordRepository,
                                BeneficiaryRepository beneficiaryRepository,
-                               SecurityUtils securityUtils) {
+                               SecurityUtils securityUtils, ZScoreCalculator zScoreCalculator) {
         this.growthRecordRepository = growthRecordRepository;
         this.beneficiaryRepository = beneficiaryRepository;
         this.securityUtils = securityUtils;
+        this.zScoreCalculator = zScoreCalculator;
     }
 
     @Transactional
@@ -128,4 +133,47 @@ public class GrowthRecordService {
         dto.setWorkerName(record.getRecordedBy().getFullName());
         return dto;
     }
+
+
+    public List<GrowthZScoreDto> getGrowthRecordsWithZScore(Long beneficiaryId) {
+        Beneficiary beneficiary = getBeneficiaryWithAccessCheck(beneficiaryId);
+        List<GrowthRecord> records = growthRecordRepository.findByBeneficiaryIdOrderByRecordDateAsc(beneficiaryId);
+        List<GrowthZScoreDto> result = new ArrayList<>();
+        LocalDate dob = beneficiary.getDateOfBirth();
+        String gender = beneficiary.getGender().name();
+
+        for (GrowthRecord record : records) {
+            // compute age in months at the record date
+            long ageDays = ChronoUnit.DAYS.between(dob, record.getRecordDate());
+            int ageMonths = (int) (ageDays / 30.44); // approximate
+            if (ageMonths < 0) ageMonths = 0;
+            if (ageMonths > 60) ageMonths = 60;
+
+            double zScore = zScoreCalculator.calculateZScore(ageMonths, record.getWeightKg(), gender);
+            String classification = zScoreCalculator.classifyZScore(zScore);
+
+            result.add(new GrowthZScoreDto(
+                    record.getId(),
+                    record.getRecordDate(),
+                    record.getWeightKg(),
+                    zScore,
+                    classification
+            ));
+        }
+        return result;
+    }
+
+    private Beneficiary getBeneficiaryWithAccessCheck(Long beneficiaryId) {
+        Beneficiary beneficiary = beneficiaryRepository.findById(Math.toIntExact(beneficiaryId))
+                .orElseThrow(() -> new RuntimeException("Beneficiary not found"));
+        Worker currentWorker = securityUtils.getCurrentWorker();
+        if (currentWorker.getRole() == Worker.Role.WORKER) {
+            if (currentWorker.getCenter() == null ||
+                    !currentWorker.getCenter().getId().equals(beneficiary.getCenter().getId())) {
+                throw new RuntimeException("Access denied: You can only mark attendance for beneficiaries in your center");
+            }
+        }
+        return beneficiary;
+    }
+
 }

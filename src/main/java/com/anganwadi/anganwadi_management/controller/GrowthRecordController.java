@@ -3,6 +3,7 @@ package com.anganwadi.anganwadi_management.controller;
 
 import com.anganwadi.anganwadi_management.dto.ApiResponse;
 import com.anganwadi.anganwadi_management.dto.GrowthRecordDto;
+import com.anganwadi.anganwadi_management.dto.GrowthZScoreDto;
 import com.anganwadi.anganwadi_management.service.GrowthRecordService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -50,5 +51,12 @@ public class GrowthRecordController {
                     .body(new ApiResponse("No growth records found for beneficiary " + beneficiaryId, null));
         }
         return ResponseEntity.ok(latest);
+    }
+
+
+    @GetMapping("/{beneficiaryId}/growth/zscore")
+    @PreAuthorize("hasAnyRole('ADMIN', 'SUPERVISOR', 'WORKER')")
+    public ResponseEntity<List<GrowthZScoreDto>> getGrowthWithZScore(@PathVariable Long beneficiaryId) {
+        return ResponseEntity.ok(growthRecordService.getGrowthRecordsWithZScore(beneficiaryId));
     }
 }
