@@ -27,6 +27,8 @@ public interface AttendanceRepository extends JpaRepository<Attendance, Long> {
     @Query("SELECT COUNT(DISTINCT b.id) FROM Beneficiary b WHERE b.center.id = :centerId AND b.active = true AND b.gender IS NOT NULL") // All beneficiaries (we filter by session type later)
     Long countTotalEnrolledInCenter(@Param("centerId") Long centerId);
 
+    List<Attendance> findByBeneficiaryIdAndAttendanceDateAfter(Long beneficiaryId, LocalDate oneMonthAgo);
+
     // For pregnant mothers we need a different query – we assume pregnant mothers have a flag in Beneficiary?
     // For simplicity, we'll add a boolean `isPregnant` in Beneficiary entity.
     // Let's add that field now.
