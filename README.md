@@ -1,277 +1,152 @@
-````md
-# 🌱 ICDS Health Tracker – Anganwadi Management System
+# ICDS Health Tracker – Anganwadi Management System
 
-<p align="center">
+[![Live Demo](https://img.shields.io/badge/demo-live-brightgreen)](https://icds-health-tracker.netlify.app)
+[![API](https://img.shields.io/badge/API-deployed-blue)](https://icds-health-tracker.onrender.com)
+[![Java](https://img.shields.io/badge/Java-21-orange)](https://openjdk.org/)
+[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.4.5-brightgreen)](https://spring.io/projects/spring-boot)
+[![React](https://img.shields.io/badge/React-18.2-61dafb)](https://reactjs.org/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-blue)](https://www.postgresql.org/)
+[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
-![Live Demo](https://img.shields.io/badge/demo-live-brightgreen?style=for-the-badge)
-![API](https://img.shields.io/badge/API-deployed-blue?style=for-the-badge)
-![Java](https://img.shields.io/badge/Java-21-orange?style=for-the-badge)
-![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.4.5-brightgreen?style=for-the-badge)
-![React](https://img.shields.io/badge/React-18.2-61dafb?style=for-the-badge)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-blue?style=for-the-badge)
-![License](https://img.shields.io/badge/license-MIT-green?style=for-the-badge)
+> **🧠 A production‑ready, offline‑first, voice‑assisted health management platform for rural Anganwadi workers.**  
+> Built to tackle child malnutrition, vaccine tracking, and real‑time risk prediction in low‑connectivity environments.
 
-</p>
-
-<p align="center">
-  <b>Offline-First • Voice-Assisted • AI-Driven • Production-Ready</b>
-</p>
-
-<p align="center">
-A modern health management platform for Anganwadi workers under India's ICDS scheme.
-</p>
+🔗 **Live Demo** → [https://icds-health-tracker.netlify.app](https://icds-health-tracker.netlify.app)  
+🔗 **API Endpoint** → [https://icds-health-tracker.onrender.com](https://icds-health-tracker.onrender.com)
 
 ---
 
-## 🔗 Live Links
-
-🌐 **Frontend Demo**  
-https://icds-health-tracker.netlify.app
-
-⚙️ **Backend API**  
-https://icds-health-tracker.onrender.com
-
----
-
-# 📌 Table of Contents
-
-- [📖 Overview](#-overview)
-- [❓ Why This Project?](#-why-this-project)
-- [✨ Features](#-features)
-- [🛠️ Tech Stack](#️-tech-stack)
-- [🏗️ System Architecture](#️-system-architecture)
-- [🚀 Getting Started](#-getting-started)
-- [🔐 Environment Variables](#-environment-variables)
-- [📚 API Documentation](#-api-documentation)
-- [📸 Screenshots](#-screenshots)
-- [🧭 Future Roadmap](#-future-roadmap)
-- [🤝 Contributing](#-contributing)
-- [📄 License](#-license)
-- [🙏 Acknowledgements](#-acknowledgements)
+## 📌 Table of Contents
+- [Overview](#overview)
+- [Why This Project?](#why-this-project)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Architecture](#architecture)
+- [Getting Started](#getting-started)
+- [Environment Variables](#environment-variables)
+- [API Documentation](#api-documentation)
+- [Screenshots](#screenshots)
+- [Roadmap](#roadmap)
+- [Contributing](#contributing)
+- [License](#license)
 
 ---
 
-# 📖 Overview
+## 📖 Overview
 
-**ICDS Health Tracker** digitizes the daily workflow of rural Anganwadi workers by replacing traditional paper registers with a smart, scalable, offline-capable web platform.
+**ICDS Health Tracker** digitises the workflow of Anganwadi (rural childcare) workers under India’s ICDS scheme. It replaces paper registers with a modern web app that works **offline**, understands **voice commands**, predicts **malnutrition risk**, and generates **WHO‑compliant growth charts**.
 
-The system helps track:
-
-- 👶 Child growth records
-- 💉 Vaccination schedules
-- 🥗 Nutrition distribution
-- 📈 Malnutrition risk prediction
-- 🗣️ Voice-based data entry
-- 📊 WHO-compliant growth analytics
-
-Built specifically for **low-connectivity rural environments**.
+Target users:
+- **Anganwadi Worker** – daily attendance, growth records, vaccination tracking, nutrition distribution
+- **Supervisor** – monitor multiple centers, view reports, risk alerts
+- **Admin** – manage centers & workers, generate reports
 
 ---
 
-# ❓ Why This Project?
+## 🧩 Why This Project?
 
-Traditional Anganwadi systems still rely heavily on paper records.  
-That means:
-
-- Lost records
-- Delayed reporting
-- Poor analytics
-- Missed vaccinations
-- Difficult field operations
-
-This platform modernizes the entire workflow.
-
-| 🚨 Problem | ✅ Solution |
-|---|---|
-| Paper registers & manual records | Offline-first digital sync using IndexedDB |
-| Low literacy & slow typing | Voice-assisted data entry |
-| Delayed malnutrition detection | Predictive risk scoring system |
-| Missed vaccination schedules | Automated due/overdue tracking |
-| Poor internet in villages | Offline queue with auto-sync |
-| No growth visualization | WHO Z-score growth charts |
+| Problem | Solution |
+|---------|----------|
+| Paper registers → data loss | **Offline‑first sync** with IndexedDB |
+| Low literacy & typing difficulty | **Voice‑assisted data entry** (Web Speech API) |
+| Late malnutrition detection | **Predictive risk scoring** (5 factors + WHO Z‑score) |
+| Missed vaccinations | **Auto‑schedule** with due/overdue status |
+| No growth visualisation | **WHO Z‑score charts** with classification |
+| Poor internet in villages | **Offline queue** – data saved locally, syncs when online |
 
 ---
 
-# ✨ Features
+## ✨ Features
+
+### ✅ Core (Foundation)
+- Role‑based authentication (JWT, Spring Security)
+- CRUD for Centers, Workers, Beneficiaries
+- Growth tracking with duplicate & future date validation
+- Vaccination schedule (19 preloaded vaccines) with due/overdue status
+- Nutrition distribution log + monthly summary
+- Attendance register (batch marking, monthly % stats)
+- PDF/CSV reports (growth summary, vaccination coverage, nutrition)
+
+### 🚀 Advanced (Recruiter Awe‑Striking)
+- **WHO Z‑score growth chart** – weight‑for‑age Z‑score + classification (severe underweight → obese)
+- **Predictive malnutrition risk system** – 5 weighted factors → risk score (0‑100) + actionable recommendations
+- **Offline‑first sync** – IndexedDB queue, axios interceptor, auto‑sync on network restore
+- **Voice‑assisted data entry** – Web Speech API + custom NLP parsing for growth records, attendance, registration
+- **Live demo** – deployed on Render (backend) + Netlify (frontend)
 
 ---
 
-## ✅ Core Features
+## 🛠️ Tech Stack
 
-### 🔐 Authentication & Security
-- JWT Authentication
-- Role-based access control
-- Spring Security integration
-
-### 👥 Beneficiary Management
-- Manage centers, workers, and children
-- CRUD operations with validation
-
-### 📈 Growth Tracking
-- Weight & height records
-- Duplicate prevention
-- Future date validation
-
-### 💉 Vaccination Tracking
-- 19 preloaded vaccines
-- Due / overdue indicators
-- Auto scheduling
-
-### 🥗 Nutrition Distribution
-- Nutrition logs
-- Monthly summaries
-- Consumption reports
-
-### 📅 Attendance Management
-- Batch attendance marking
-- Monthly percentage analytics
-
-### 📄 Report Generation
-- PDF reports
-- CSV exports
-- Growth summaries
-- Vaccination coverage reports
-
----
-
-## 🚀 Advanced Features
-
-### 📊 WHO Z-Score Growth Analytics
-- Weight-for-age classification
-- Growth curve visualization
-- Severe underweight → obese classification
-
-### 🧠 Predictive Malnutrition Risk Engine
-Risk score generated using:
-- Growth trends
-- Nutrition gaps
-- Vaccination status
-- Attendance consistency
-- Age-specific health indicators
-
-### 🌐 Offline-First Architecture
-- IndexedDB local storage
-- Auto sync queue
-- Axios retry interceptor
-- Works without internet
-
-### 🎙️ Voice-Assisted Data Entry
-Supports:
-- Growth recording
-- Attendance updates
-- Beneficiary registration
-
-Built using:
-- Web Speech API
-- Custom NLP parsing
-
-### ☁️ Production Deployment
-- Backend hosted on Render
-- Frontend deployed on Netlify
-
----
-
-# 🛠️ Tech Stack
-
-| Layer | Technologies |
-|---|---|
-| **Backend** | Spring Boot 3.4.5, Java 21, Spring Security, JWT, JPA |
-| **Frontend** | React 18, React Router, Axios, Recharts |
+| Layer | Technology |
+|-------|------------|
+| **Backend** | Spring Boot 3.4.5, Java 21, Spring Security, JWT, Spring Data JPA |
 | **Database** | PostgreSQL 16 |
-| **Offline Storage** | Dexie.js + IndexedDB |
-| **Voice Processing** | Web Speech API |
-| **Reports** | OpenPDF, Apache Commons CSV |
-| **Deployment** | Docker, Render, Netlify |
+| **Frontend** | React 18, React Router, Axios, Recharts, Dexie.js (IndexedDB) |
+| **Voice** | Web Speech API (no backend – pure browser) |
+| **PDF/CSV** | OpenPDF, Apache Commons CSV |
+| **DevOps** | Docker, Render (backend), Netlify (frontend) |
 
 ---
 
-# 🏗️ System Architecture
+## 🏗️ Architecture
 
-```text
+```
 ┌─────────────────────────────────────────────────────────────┐
-│                    React Frontend (Netlify)                │
-│                                                             │
-│  ┌─────────────┐   ┌──────────────┐   ┌─────────────────┐   │
-│  │ Voice Input │   │ Offline DB  │   │ Recharts Graphs │   │
-│  │ Web Speech  │   │ Dexie.js    │   │ WHO Z-Scores    │   │
-│  └──────┬──────┘   └──────┬──────┘   └────────┬────────┘   │
-│         └─────────────────┼────────────────────┘            │
-│                           │                                 │
-│                    HTTP + JWT                               │
-│                           ▼                                 │
-│                Spring Boot REST API                         │
-│                                                             │
-│  ┌───────────────────────────────────────────────────────┐  │
-│  │ Controllers • Services • JWT Filter • Repositories   │  │
-│  └───────────────────────────────────────────────────────┘  │
-│                           │                                 │
-│                           ▼                                 │
-│                    PostgreSQL Database                      │
+│                    React Frontend (Netlify)                 │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────────────┐  │
+│  │ Voice Input │  │ Offline DB  │  │ Recharts (Z‑score)  │  │
+│  │ (Web Speech)│  │ (Dexie.js)  │  │                     │  │
+│  └─────────────┘  └──────┬──────┘  └─────────────────────┘  │
+│         │                │                                   │
+│         └────────┬───────┘                                   │
+│                  │ HTTP / JWT                                │
+│                  ▼                                           │
+│         Spring Boot API (Render)                             │
+│  ┌─────────────────────────────────────────────────────────┐ │
+│  │ Security │ JWT Filter │ Controllers │ Services │ Repos  │ │
+│  └─────────────────────────────────────────────────────────┘ │
+│                  │                                           │
+│                  ▼                                           │
+│              PostgreSQL (Supabase / Render)                  │
 └─────────────────────────────────────────────────────────────┘
-````
+```
 
 ---
 
-# 🚀 Getting Started
+## 🚀 Getting Started
 
----
+### Prerequisites
+- Java 21 + Maven
+- Node.js 18+ + npm
+- PostgreSQL 16 (or use Docker)
 
-## 📋 Prerequisites
-
-Install:
-
-* Java 21
-* Maven
-* Node.js 18+
-* PostgreSQL 16
-* Docker (optional)
-
----
-
-# ⚙️ Backend Setup
+### Backend Setup
 
 ```bash
 # Clone repository
 git clone https://github.com/yourusername/icds-health-tracker.git
-
-# Navigate
 cd icds-health-tracker/backend
 
-# Start PostgreSQL container
-docker run --name icds-db \
--e POSTGRES_DB=icds_db \
--e POSTGRES_USER=icds_user \
--e POSTGRES_PASSWORD=icds_pass \
--p 5432:5432 \
--d postgres:16
+# Create PostgreSQL database (or use Docker)
+docker run --name icds-db -e POSTGRES_DB=icds_db -e POSTGRES_USER=icds_user -e POSTGRES_PASSWORD=icds_pass -p 5432:5432 -d postgres:16
 
-# Run Spring Boot app
+# Configure application.properties (see Environment Variables)
+# Build and run
 ./mvnw spring-boot:run
 ```
 
----
-
-# 💻 Frontend Setup
+### Frontend Setup
 
 ```bash
 cd ../frontend
-
 npm install
-
 npm run dev
 ```
 
-Frontend runs at:
+The app will open at `http://localhost:5173`.
 
-```txt
-http://localhost:5173
-```
-
----
-
-# 🐳 Docker Compose
-
-Run full stack:
+### Docker Compose (Full Stack)
 
 ```bash
 docker-compose up -d
@@ -279,160 +154,94 @@ docker-compose up -d
 
 ---
 
-# 🔐 Environment Variables
+## 🔐 Environment Variables
 
----
-
-## Backend (`application.properties`)
-
+### Backend (`application.properties` or Render env)
 ```properties
 spring.datasource.url=jdbc:postgresql://localhost:5432/icds_db
 spring.datasource.username=icds_user
 spring.datasource.password=icds_pass
-
-jwt.secret=YOUR_SECRET_KEY
+jwt.secret=404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
 jwt.expiration.ms=86400000
 ```
 
----
-
-## Frontend (`.env`)
-
-```env
-VITE_API_URL=https://icds-health-tracker.onrender.com
+### Frontend (`.env`)
+```
+VITE_API_URL=https://icds-health-tracker.onrender.com   # or http://localhost:8080
 ```
 
 ---
 
-# 📚 API Documentation
+## 📚 API Documentation
 
-Swagger UI:
-
-```txt
+Interactive Swagger UI (available when running locally):
+```
 http://localhost:8080/swagger-ui.html
 ```
 
----
-
-## 🔑 Important Endpoints
-
-### Authentication
-
+**Key Endpoints** (protected by JWT)
 ```http
-POST /auth/login
-```
-
-Request:
-
-```json
-{
-  "mobile": "9999999999",
-  "password": "admin123"
-}
-```
-
----
-
-### Beneficiaries
-
-```http
-GET /beneficiaries
+POST /auth/login          → { "mobile": "9999999999", "password": "admin123" }
+GET  /beneficiaries       → list
 POST /beneficiaries/{id}/growth
+GET  /risk/at-risk?centerId=1
+GET  /reports/nutrition-summary/csv?centerId=1&year=2025&month=5
 ```
 
----
-
-### Risk Prediction
-
-```http
-GET /risk/at-risk?centerId=1
-```
+Full Postman collection – [link to be added]
 
 ---
 
-### Reports
+## 📸 Screenshots
 
-```http
-GET /reports/nutrition-summary/csv?centerId=1&year=2025&month=5
-```
+| Dashboard | Growth Chart with Z‑Score |
+|-----------|---------------------------|
+| ![Dashboard](https://via.placeholder.com/400x200?text=Dashboard+Screenshot) | ![Z‑Score Chart](https://via.placeholder.com/400x200?text=Z‑Score+Chart) |
 
----
+| Offline Sync Indicator | Voice Input in Action |
+|------------------------|-----------------------|
+| ![Offline Queue](https://via.placeholder.com/400x200?text=Offline+Queue) | ![Voice](https://via.placeholder.com/400x200?text=Voice+Input) |
 
-# 📸 Screenshots
-
-| Dashboard                                                        | Growth Analytics                                                      |
-| ---------------------------------------------------------------- | --------------------------------------------------------------------- |
-| ![Dashboard](https://via.placeholder.com/500x250?text=Dashboard) | ![Growth](https://via.placeholder.com/500x250?text=WHO+Z-Score+Chart) |
-
-| Offline Sync                                                      | Voice Input                                                    |
-| ----------------------------------------------------------------- | -------------------------------------------------------------- |
-| ![Offline](https://via.placeholder.com/500x250?text=Offline+Sync) | ![Voice](https://via.placeholder.com/500x250?text=Voice+Input) |
-
-> Replace placeholder images with actual project screenshots.
+*Replace placeholder links with actual screenshots from your deployment.*
 
 ---
 
-# 🧭 Future Roadmap
+## 🧭 Roadmap (Ideas for Future)
 
-* [ ] SMS vaccination reminders
-* [ ] React Native mobile app
-* [ ] Full multilingual support
-* [ ] ML-based malnutrition prediction
-* [ ] Aadhaar / biometric integration
-* [ ] Real-time analytics dashboard
-* [ ] GIS village health mapping
+- [ ] SMS reminders for vaccinations (Twilio)
+- [ ] Mobile app (React Native) with full offline support
+- [ ] ML‑based malnutrition prediction (LSTM on historical data)
+- [ ] Biometric / Aadhaar integration (mock for demo)
+- [ ] Multi‑language support (Hindi, regional languages)
 
 ---
 
-# 🤝 Contributing
+## 🤝 Contributing
 
-Contributions are welcome.
-
-```bash
-# Fork repository
-
-# Create branch
-git checkout -b feature/amazing-feature
-
-# Commit changes
-git commit -m "Add amazing feature"
-
-# Push branch
-git push origin feature/amazing-feature
-```
-
-Then open a Pull Request 🚀
+Contributions are welcome!  
+1. Fork the repository  
+2. Create your feature branch (`git checkout -b feature/amazing`)  
+3. Commit changes (`git commit -m 'Add some amazing feature'`)  
+4. Push to the branch (`git push origin feature/amazing`)  
+5. Open a Pull Request  
 
 ---
 
-# 📄 License
+## 📄 License
 
-Distributed under the **MIT License**.
-
-See `LICENSE` for more information.
+Distributed under the MIT License. See `LICENSE` for more information.
 
 ---
 
-# 🙏 Acknowledgements
+## 🙏 Acknowledgements
 
-Special thanks to:
-
-* WHO Anthro
-* Recharts
-* Dexie.js
-* Render
-* Netlify
-* Spring Boot Community
+- WHO Anthro for LMS growth tables
+- Recharts for beautiful charts
+- Dexie.js for IndexedDB wrapper
+- Render & Netlify for free hosting
 
 ---
 
-<p align="center">
-  Built with ❤️ for rural healthcare innovation in India 🇮🇳
-</p>
+**Built with ❤️ to empower Anganwadi workers and improve child health in rural India.**
 
-<p align="center">
-  <a href="#-icds-health-tracker--anganwadi-management-system">⬆ Back To Top</a>
-</p>
-```
-
-Source: 
+[⬆ Back to top](#icds-health-tracker--anganwadi-management-system)
