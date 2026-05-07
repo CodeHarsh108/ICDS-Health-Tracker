@@ -69,7 +69,7 @@ export default function Settings() {
             </div>
             <div className="info-item">
               <label>Backend</label>
-              <span>http://localhost:8080</span>
+              <span>{import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080'}</span>
             </div>
             <div className="info-item">
               <label>Platform</label>
