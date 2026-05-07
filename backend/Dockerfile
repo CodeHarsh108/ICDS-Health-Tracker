@@ -13,15 +13,10 @@ RUN mvn clean package -DskipTests
 # Runtime stage
 FROM eclipse-temurin:21-jre-alpine
 WORKDIR /app
-
 COPY --from=build /app/target/*.jar app.jar
 
 # 🔑 Expose the port (documentation only; actual binding is handled by server.port)
-EXPOSE 8080
+EXPOSE 10000
 
 # Memory management for free tier
-ENTRYPOINT ["java", \
-    "-XX:+UseContainerSupport", \
-    "-XX:MaxRAMPercentage=50.0", \
-    "-Djava.security.egd=file:/dev/./urandom", \
-    "-jar", "app.jar"]
+ENTRYPOINT ["sh", "-c", "java -jar -Dserver.port=${PORT:-10000} app.jar"]
