@@ -189,44 +189,36 @@ GET  /risk/at-risk?centerId=1
 GET  /reports/nutrition-summary/csv?centerId=1&year=2025&month=5
 ```
 
-Full Postman collection – [link to be added]
+Full Postman collection – [https://ecommerce-website-0065.postman.co/workspace/Ecommerce~3a70e696-070d-4127-a902-9a643f8a2110/collection/38792377-18a28059-fa93-42b1-8a29-631bb79197d6?action=share&creator=38792377]
 
 ---
 
 ## 📸 Screenshots
 
-<table>
-<tr>
-<td align="center">
-<b>Dashboard</b><br/>
-<img src="https://github.com/user-attachments/assets/1d5152ce-20ec-46d3-a201-4b1460633b75" width="100%"/>
-</td>
+### Dashboard
+<img src="https://github.com/user-attachments/assets/1d5152ce-20ec-46d3-a201-4b1460633b75" width="100%" alt="Dashboard"/>
 
-<td align="center">
-<b>Growth Chart with Z-Score</b><br/>
-<img src="https://github.com/user-attachments/assets/66d3d7a3-7f27-4a82-a4ee-da521013278a" width="100%"/>
-</td>
-</tr>
+---
 
-<tr>
-<td align="center">
-<b>Voice Input</b><br/>
-<img src="https://github.com/user-attachments/assets/a55d4cd8-81f8-4a87-be2d-1872acf1f1e0" width="100%"/>
-</td>
+### Growth Chart with Z-Score
+<img src="https://github.com/user-attachments/assets/66d3d7a3-7f27-4a82-a4ee-da521013278a" width="100%" alt="Growth Chart"/>
 
-<td align="center">
-<b>Attendance Management</b><br/>
-<img src="https://github.com/user-attachments/assets/4485cf0f-8b23-48b5-be09-95c04a4fc0d9" width="100%"/>
-</td>
-</tr>
+---
 
-<tr>
-<td align="center">
-<b>Reports Interface</b><br/>
-<img src="https://github.com/user-attachments/assets/adb2902f-dc6f-4678-88e6-e3b66a22c069" width="100%"/>
-</td>
-</tr>
-</table>
+### Voice Input
+<img src="https://github.com/user-attachments/assets/a55d4cd8-81f8-4a87-be2d-1872acf1f1e0" width="100%" alt="Voice Input"/>
+
+---
+
+### Attendance Management
+<img src="https://github.com/user-attachments/assets/4485cf0f-8b23-48b5-be09-95c04a4fc0d9" width="100%" alt="Attendance"/>
+
+---
+
+### Reports Interface
+<img src="https://github.com/user-attachments/assets/adb2902f-dc6f-4678-88e6-e3b66a22c069" width="100%" alt="Reports"/>
+
+
 ## 🧭 Roadmap (Ideas for Future)
 
 - [ ] SMS reminders for vaccinations (Twilio)
