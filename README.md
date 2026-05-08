@@ -33,7 +33,6 @@
 ---
 
 ## 📖 Overview
-<img width="1717" height="725" alt="image" src="https://github.com/user-attachments/assets/7d821f4e-0744-401b-aa42-8143eb968e1f" />
 
 
 **ICDS Health Tracker** digitises the workflow of Anganwadi (rural childcare) workers under India’s ICDS scheme. It replaces paper registers with a modern web app that works **offline**, understands **voice commands**, predicts **malnutrition risk**, and generates **WHO‑compliant growth charts**.
@@ -69,7 +68,7 @@ Target users:
 - Attendance register (batch marking, monthly % stats)
 - PDF/CSV reports (growth summary, vaccination coverage, nutrition)
 
-### 🚀 Advanced (Recruiter Awe‑Striking)
+### 🚀 Advanced 
 - **WHO Z‑score growth chart** – weight‑for‑age Z‑score + classification (severe underweight → obese)
 - **Predictive malnutrition risk system** – 5 weighted factors → risk score (0‑100) + actionable recommendations
 - **Offline‑first sync** – IndexedDB queue, axios interceptor, auto‑sync on network restore
@@ -204,7 +203,6 @@ Full Postman collection – [link to be added]
 |------------------------|-----------------------|
 | ![Offline Queue](https://via.placeholder.com/400x200?text=Offline+Queue) | ![Voice](https://via.placeholder.com/400x200?text=Voice+Input) |
 
-*Replace placeholder links with actual screenshots from your deployment.*
 
 ---
 
