@@ -33,6 +33,8 @@
 ---
 
 ## 📖 Overview
+<img width="1717" height="725" alt="image" src="https://github.com/user-attachments/assets/7d821f4e-0744-401b-aa42-8143eb968e1f" />
+
 
 **ICDS Health Tracker** digitises the workflow of Anganwadi (rural childcare) workers under India’s ICDS scheme. It replaces paper registers with a modern web app that works **offline**, understands **voice commands**, predicts **malnutrition risk**, and generates **WHO‑compliant growth charts**.
 
